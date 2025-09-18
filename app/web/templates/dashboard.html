@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+<div id="dashboard" class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+  <div class="card rounded-2xl p-4">
+    <div class="font-semibold mb-2">Saved Bots</div>
+    <div id="botList" class="space-y-2"></div>
+  </div>
+  <div class="lg:col-span-2 card rounded-2xl p-6">
+    <div id="summaryShell" class="hidden">
+      <div class="flex items-center justify-between mb-2">
+        <div>
+          <div class="text-sm text-subtle">Bot Name:</div>
+          <div class="text-xl font-semibold" id="sumName">-</div>
+        </div>
+        <div class="text-right">
+          <div class="text-xs text-subtle" id="sumStart">Start at: -</div>
+          <div class="text-xs text-subtle" id="sumAccount">Account: -</div>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-4 gap-4">
+        <div class="card rounded-2xl p-4"><div class="text-subtle text-sm">Running Trade:</div><div class="text-lg font-semibold" id="runSide">-</div><div class="text-xs text-subtle mt-1">Entry Price: <span id="entryPrice">-</span></div></div>
+        <div class="card rounded-2xl p-4"><div class="text-subtle text-sm">ROI:</div><div class="text-lg font-semibold text-emerald-400" id="runRoi">0%</div><div class="text-xs text-subtle mt-1">Market Price: <span id="markPrice">-</span></div></div>
+        <div class="card rounded-2xl p-4"><div class="text-subtle text-sm">Total Winning Trade</div><div class="text-2xl font-bold mt-1" id="winTrades">0</div><div class="text-xs text-subtle mt-1">Candle close ranges summary</div></div>
+        <div class="card rounded-2xl p-4"><div class="text-subtle text-sm">Total Losing Trade</div><div class="text-2xl font-bold mt-1" id="lossTrades">0</div><div class="text-xs text-subtle mt-1">SL hit / negative ROI close</div></div>
+      </div>
+
+      <div class="card rounded-2xl p-4 mt-4">
+        <div class="grid md:grid-cols-3 gap-4 items-center">
+          <div class="text-xl font-semibold">Total Trade: <span id="totalTrades">0</span></div>
+          <div class="text-sm text-subtle">Total Profit: <span id="totalProfit">$0</span> &nbsp; Total Loss: <span id="totalLoss">$0</span></div>
+          <div class="text-xl font-bold text-emerald-400">PnL: <span id="netPnl">$0</span></div>
+        </div>
+        <div class="mt-3 flex gap-2">
+          <button class="btn btn-warn" id="btnPush">Push</button>
+          <button class="btn btn-danger" id="btnClose">Close</button>
+        </div>
+      </div>
+    </div>
+    <div id="summaryEmpty" class="text-subtle">Select a bot from left to view summary.</div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,70 @@
+{% set page = page or '' %}
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Omlol Bot</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              background: '#0b1220',
+              surface: '#101827',
+              muted: '#1b2538',
+              primary: '#22c55e',
+              danger: '#ef4444',
+              warn: '#eab308',
+              text: '#e5e7eb',
+              subtle: '#9ca3af'
+            },
+            boxShadow: { 'soft': '0 4px 24px rgba(0,0,0,.25)' },
+            borderRadius: { '2xl': '1rem' }
+          }
+        }
+      };
+    </script>
+    <link rel="stylesheet" href="{{ url_for('web.static', filename='css/styles.css') }}">
+  </head>
+  <body class="min-h-screen" style="background:#0b1220; color:#e5e7eb">
+    <div class="max-w-7xl mx-auto p-5 space-y-6">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <div class="w-9 h-9 rounded-xl bg-primary grid place-content-center text-black font-bold">OB</div>
+          <div class="text-lg font-semibold">Omlol Bot</div>
+        </div>
+        <div class="flex items-center gap-2">
+          <a class="btn-ghost {{ 'active' if page=='dashboard' else '' }}" href="{{ url_for('web.home') }}">Dashboard</a>
+          <a class="btn-ghost {{ 'active' if page=='bot' else '' }}" href="{{ url_for('web.bot_page') }}">Bot</a>
+          <a class="btn-ghost {{ 'active' if page=='report' else '' }}" href="{{ url_for('web.report_page') }}">Report</a>
+          <a class="btn-ghost {{ 'active' if page=='account' else '' }}" href="{{ url_for('web.account_page') }}">Account</a>
+        </div>
+      </div>
+
+      {% block content %}{% endblock %}
+
+      <div class="text-center text-subtle text-sm pt-8">© 2025 Omlol Bot — UI</div>
+    </div>
+
+    <!-- Modal container (used for Start) -->
+    <div id="modalRoot" class="fixed inset-0 hidden items-center justify-center">
+      <div class="absolute inset-0 bg-black/60"></div>
+      <div class="relative z-10 w-[90%] max-w-lg card rounded-2xl p-6">
+        <div class="text-lg font-semibold mb-3" id="modalTitle">Start Bot</div>
+        <div id="modalBody"></div>
+        <div class="flex items-center justify-end gap-2 mt-4">
+          <button class="btn btn-ghost" id="modalCancel">Cancel</button>
+          <button class="btn btn-primary" id="modalOk">Start</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    <script>
+      window.API_BASE = "";
+    </script>
+    <script src="{{ url_for('web.static', filename='js/app.js') }}"></script>
+  </body>
+</html>

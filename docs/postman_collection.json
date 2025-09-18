@@ -1,0 +1,541 @@
+{
+  "info": {
+    "name": "Trading Bot Backend",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "GET /accounts/api",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://127.0.0.1:5000/accounts/api",
+          "host": [
+            "127.0.0.1"
+          ],
+          "port": "5000",
+          "protocol": "http",
+          "path": [
+            "accounts",
+            "api"
+          ]
+        }
+      }
+    },
+    {
+      "name": "POST /accounts/api",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://127.0.0.1:5000/accounts/api",
+          "host": [
+            "127.0.0.1"
+          ],
+          "port": "5000",
+          "protocol": "http",
+          "path": [
+            "accounts",
+            "api"
+          ]
+        }
+      }
+    },
+    {
+      "name": "GET /accounts/api/accounts",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://127.0.0.1:5000/accounts/api/accounts",
+          "host": [
+            "127.0.0.1"
+          ],
+          "port": "5000",
+          "protocol": "http",
+          "path": [
+            "accounts",
+            "api",
+            "accounts"
+          ]
+        }
+      }
+    },
+    {
+      "name": "GET /accounts/api/{id}",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://127.0.0.1:5000/accounts/api/{id}",
+          "host": [
+            "127.0.0.1"
+          ],
+          "port": "5000",
+          "protocol": "http",
+          "path": [
+            "accounts",
+            "api",
+            "{id}"
+          ]
+        }
+      }
+    },
+    {
+      "name": "PUT /accounts/api/{id}",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://127.0.0.1:5000/accounts/api/{id}",
+          "host": [
+            "127.0.0.1"
+          ],
+          "port": "5000",
+          "protocol": "http",
+          "path": [
+            "accounts",
+            "api",
+            "{id}"
+          ]
+        }
+      }
+    },
+    {
+      "name": "DELETE /accounts/api/{id}",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://127.0.0.1:5000/accounts/api/{id}",
+          "host": [
+            "127.0.0.1"
+          ],
+          "port": "5000",
+          "protocol": "http",
+          "path": [
+            "accounts",
+            "api",
+            "{id}"
+          ]
+        }
+      }
+    },
+    {
+      "name": "GET /api/bots",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/bots",
+          "host": [
+            "127.0.0.1"
+          ],
+          "port": "5000",
+          "protocol": "http",
+          "path": [
+            "api",
+            "bots"
+          ]
+        }
+      }
+    },
+    {
+      "name": "POST /api/bots",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/bots",
+          "host": [
+            "127.0.0.1"
+          ],
+          "port": "5000",
+          "protocol": "http",
+          "path": [
+            "api",
+            "bots"
+          ]
+        }
+      }
+    },
+    {
+      "name": "GET /api/bots/{id}",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/bots/{id}",
+          "host": [
+            "127.0.0.1"
+          ],
+          "port": "5000",
+          "protocol": "http",
+          "path": [
+            "api",
+            "bots",
+            "{id}"
+          ]
+        }
+      }
+    },
+    {
+      "name": "PUT /api/bots/{id}",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/bots/{id}",
+          "host": [
+            "127.0.0.1"
+          ],
+          "port": "5000",
+          "protocol": "http",
+          "path": [
+            "api",
+            "bots",
+            "{id}"
+          ]
+        }
+      }
+    },
+    {
+      "name": "DELETE /api/bots/{id}",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/bots/{id}",
+          "host": [
+            "127.0.0.1"
+          ],
+          "port": "5000",
+          "protocol": "http",
+          "path": [
+            "api",
+            "bots",
+            "{id}"
+          ]
+        }
+      }
+    },
+    {
+      "name": "POST /api/bots/{id}/start",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/bots/{id}/start",
+          "host": [
+            "127.0.0.1"
+          ],
+          "port": "5000",
+          "protocol": "http",
+          "path": [
+            "api",
+            "bots",
+            "{id}",
+            "start"
+          ]
+        }
+      }
+    },
+    {
+      "name": "POST /api/bots/{id}/push",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/bots/{id}/push",
+          "host": [
+            "127.0.0.1"
+          ],
+          "port": "5000",
+          "protocol": "http",
+          "path": [
+            "api",
+            "bots",
+            "{id}",
+            "push"
+          ]
+        }
+      }
+    },
+    {
+      "name": "POST /api/bots/{id}/resume",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/bots/{id}/resume",
+          "host": [
+            "127.0.0.1"
+          ],
+          "port": "5000",
+          "protocol": "http",
+          "path": [
+            "api",
+            "bots",
+            "{id}",
+            "resume"
+          ]
+        }
+      }
+    },
+    {
+      "name": "POST /api/bots/{id}/stop",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/bots/{id}/stop",
+          "host": [
+            "127.0.0.1"
+          ],
+          "port": "5000",
+          "protocol": "http",
+          "path": [
+            "api",
+            "bots",
+            "{id}",
+            "stop"
+          ]
+        }
+      }
+    },
+    {
+      "name": "POST /api/bots/{id}/close",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/bots/{id}/close",
+          "host": [
+            "127.0.0.1"
+          ],
+          "port": "5000",
+          "protocol": "http",
+          "path": [
+            "api",
+            "bots",
+            "{id}",
+            "close"
+          ]
+        }
+      }
+    },
+    {
+      "name": "POST /api/bots/{id}/cancel-orders",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/bots/{id}/cancel-orders",
+          "host": [
+            "127.0.0.1"
+          ],
+          "port": "5000",
+          "protocol": "http",
+          "path": [
+            "api",
+            "bots",
+            "{id}",
+            "cancel-orders"
+          ]
+        }
+      }
+    },
+    {
+      "name": "GET /api/bots/{id}/status",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/bots/{id}/status",
+          "host": [
+            "127.0.0.1"
+          ],
+          "port": "5000",
+          "protocol": "http",
+          "path": [
+            "api",
+            "bots",
+            "{id}",
+            "status"
+          ]
+        }
+      }
+    },
+    {
+      "name": "GET /api/bots/{id}/positions",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/bots/{id}/positions",
+          "host": [
+            "127.0.0.1"
+          ],
+          "port": "5000",
+          "protocol": "http",
+          "path": [
+            "api",
+            "bots",
+            "{id}",
+            "positions"
+          ]
+        }
+      }
+    },
+    {
+      "name": "GET /api/trades",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/trades",
+          "host": [
+            "127.0.0.1"
+          ],
+          "port": "5000",
+          "protocol": "http",
+          "path": [
+            "api",
+            "trades"
+          ]
+        }
+      }
+    },
+    {
+      "name": "GET /api/trades/open",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/trades/open",
+          "host": [
+            "127.0.0.1"
+          ],
+          "port": "5000",
+          "protocol": "http",
+          "path": [
+            "api",
+            "trades",
+            "open"
+          ]
+        }
+      }
+    },
+    {
+      "name": "GET /api/symbols",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/symbols",
+          "host": [
+            "127.0.0.1"
+          ],
+          "port": "5000",
+          "protocol": "http",
+          "path": [
+            "api",
+            "symbols"
+          ]
+        }
+      }
+    },
+    {
+      "name": "GET /api/reports/live-summary",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/reports/live-summary",
+          "host": [
+            "127.0.0.1"
+          ],
+          "port": "5000",
+          "protocol": "http",
+          "path": [
+            "api",
+            "reports",
+            "live-summary"
+          ]
+        }
+      }
+    },
+    {
+      "name": "GET /api/reports/bot-summary/{id}",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/reports/bot-summary/{id}",
+          "host": [
+            "127.0.0.1"
+          ],
+          "port": "5000",
+          "protocol": "http",
+          "path": [
+            "api",
+            "reports",
+            "bot-summary",
+            "{id}"
+          ]
+        }
+      }
+    }
+  ]
+}

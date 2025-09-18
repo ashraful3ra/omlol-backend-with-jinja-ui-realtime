@@ -1,0 +1,294 @@
+openapi: 3.0.3
+info:
+  title: Trading Bot Backend
+  version: 1.0.0
+servers:
+- url: http://127.0.0.1:5000
+paths:
+  /accounts/api:
+    get:
+      summary: List accounts
+      responses:
+        '200':
+          description: OK
+    post:
+      summary: Create account
+      responses:
+        '200':
+          description: OK
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+  /accounts/api/accounts:
+    get:
+      summary: List accounts (primary)
+      responses:
+        '200':
+          description: OK
+  /accounts/api/{id}:
+    get:
+      summary: Get account
+      responses:
+        '200':
+          description: OK
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+    put:
+      summary: Update account
+      responses:
+        '200':
+          description: OK
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+    delete:
+      summary: Delete account
+      responses:
+        '200':
+          description: OK
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+  /api/bots:
+    get:
+      summary: List bots
+      responses:
+        '200':
+          description: OK
+    post:
+      summary: Create bot
+      responses:
+        '200':
+          description: OK
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+  /api/bots/{id}:
+    get:
+      summary: Bot detail
+      responses:
+        '200':
+          description: OK
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+    put:
+      summary: Update bot
+      responses:
+        '200':
+          description: OK
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+    delete:
+      summary: Delete bot
+      responses:
+        '200':
+          description: OK
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+  /api/bots/{id}/start:
+    post:
+      summary: Bot start
+      responses:
+        '200':
+          description: OK
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+  /api/bots/{id}/push:
+    post:
+      summary: Bot push
+      responses:
+        '200':
+          description: OK
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+  /api/bots/{id}/resume:
+    post:
+      summary: Bot resume
+      responses:
+        '200':
+          description: OK
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+  /api/bots/{id}/stop:
+    post:
+      summary: Bot stop
+      responses:
+        '200':
+          description: OK
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+  /api/bots/{id}/close:
+    post:
+      summary: Bot close
+      responses:
+        '200':
+          description: OK
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+  /api/bots/{id}/cancel-orders:
+    post:
+      summary: Bot cancel-orders
+      responses:
+        '200':
+          description: OK
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+  /api/bots/{id}/status:
+    get:
+      summary: Bot status
+      responses:
+        '200':
+          description: OK
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+  /api/bots/{id}/positions:
+    get:
+      summary: Bot positions
+      responses:
+        '200':
+          description: OK
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+  /api/trades:
+    get:
+      summary: List trades
+      responses:
+        '200':
+          description: OK
+      parameters:
+      - in: query
+        name: bot_id
+        schema:
+          type: integer
+      - in: query
+        name: symbol
+        schema:
+          type: string
+      - in: query
+        name: from
+        schema:
+          type: string
+      - in: query
+        name: to
+        schema:
+          type: string
+      - in: query
+        name: page
+        schema:
+          type: integer
+      - in: query
+        name: page_size
+        schema:
+          type: integer
+  /api/trades/open:
+    get:
+      summary: List open trades
+      responses:
+        '200':
+          description: OK
+      parameters:
+      - in: query
+        name: bot_id
+        schema:
+          type: integer
+      - in: query
+        name: symbol
+        schema:
+          type: string
+  /api/symbols:
+    get:
+      summary: List futures symbols
+      responses:
+        '200':
+          description: OK
+      parameters:
+      - in: query
+        name: account_id
+        schema:
+          type: integer
+  /api/reports/live-summary:
+    get:
+      summary: Live summary
+      responses:
+        '200':
+          description: OK
+  /api/reports/bot-summary/{id}:
+    get:
+      summary: Bot summary
+      responses:
+        '200':
+          description: OK
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer

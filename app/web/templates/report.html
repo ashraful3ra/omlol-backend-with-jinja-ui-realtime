@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+<div id="reportPage" class="card rounded-2xl p-6">
+  <div class="flex items-center justify-between mb-3">
+    <div class="font-semibold text-lg">Trade reports</div>
+    <div class="flex items-center gap-2">
+      <input id="search" class="input w-56" placeholder="Search by name...">
+      <input id="fromDate" type="date" class="input w-36">
+      <input id="toDate" type="date" class="input w-36">
+    </div>
+  </div>
+  <div class="overflow-x-auto">
+    <table class="w-full text-left text-sm">
+      <thead class="text-subtle">
+        <tr>
+          <th class="py-2 pr-4">SL</th>
+          <th class="py-2 pr-4">Name</th>
+          <th class="py-2 pr-4">Date & Time</th>
+          <th class="py-2 pr-4">Total Trade</th>
+          <th class="py-2 pr-4">Loss Trade</th>
+          <th class="py-2 pr-4">Profit trade</th>
+          <th class="py-2 pr-4">Breakeven</th>
+          <th class="py-2 pr-4">PnL</th>
+        </tr>
+      </thead>
+      <tbody id="reportRows"></tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

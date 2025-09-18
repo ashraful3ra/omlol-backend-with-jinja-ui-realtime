@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block content %}
+<div id="botPage" class="grid grid-cols-1 xl:grid-cols-2 gap-6">
+  <div class="card rounded-2xl p-6">
+    <div class="text-lg font-semibold mb-3">Create Bot</div>
+    <div class="grid md:grid-cols-2 gap-4">
+      <div><div class="text-sm mb-1">Bot Name</div><input id="botName" class="input" placeholder="Bot name"></div>
+      <div><div class="text-sm mb-1">Time frame</div>
+        <select id="timeframe" class="select">
+          <option>1m</option><option>5m</option><option>15m</option><option>30m</option><option>1h</option><option>4h</option>
+        </select>
+      </div>
+      <div class="md:col-span-2">
+        <div class="text-sm mb-1">Coins (comma separated)</div>
+        <input id="coins" class="input" placeholder='e.g. "ETHUSDT,BTCUSDT"'>
+        <div class="text-xs text-subtle mt-1" id="hintSymbols">BTCUSDT, ETHUSDT, BCHUSDT, XRPUSDT, LTCUSDT, TRXUSDT, ...</div>
+      </div>
+      <div><div class="text-sm mb-1">Trade mode</div><select id="tradeMode" class="select"><option value="follow">Follow (Green⇒Long, Red⇒Short)</option><option value="opposite">Opposite (Green⇒Short, Red⇒Long)</option></select></div>
+      <div><div class="text-sm mb-1">Margin USD</div><input id="marginUsd" type="number" class="input" value="2"></div>
+      <div><div class="text-sm mb-1">Leverage: <span id="levText">50</span>x</div><input id="leverage" type="range" min="1" max="150" value="50" class="w-full" oninput="document.getElementById('levText').innerText=this.value"></div>
+      <div><div class="text-sm mb-1">Margin mode</div><select id="marginMode" class="select"><option>normal</option><option>recovery</option></select></div>
+      <div><div class="text-sm mb-1">Recovery Trigger ROI (%)</div><input id="recoveryRoi" type="number" class="input" value="-50"></div>
+      <div><div class="text-sm mb-1">Recovery Max Cap (USD)</div><input id="maxCap" type="number" class="input" value="500"></div>
+      <div><div class="text-sm mb-1">Run Mode</div><select id="runMode" class="select"><option value="ongoing">Ongoing</option><option value="limit">Limit</option></select></div>
+      <div><div class="text-sm mb-1">Max Trades (if Limit)</div><input id="maxTrades" type="number" class="input" value="500"></div>
+
+      <!-- ROI grid with add new -->
+      <div class="md:col-span-2">
+        <div class="grid md:grid-cols-6 gap-3 items-end">
+          <div><div class="text-sm mb-1">R1 SL ROI %</div><input id="r1sl" type="number" class="input" value="-20"></div>
+          <div><div class="text-sm mb-1">R2 ROI %</div><input data-roi="R2" type="number" class="input roi" value="10"></div>
+          <div><div class="text-sm mb-1">R3 ROI %</div><input data-roi="R3" type="number" class="input roi" value="15"></div>
+          <div><div class="text-sm mb-1">R4 ROI %</div><input data-roi="R4" type="number" class="input roi" value="20"></div>
+          <div><div class="text-sm mb-1">R5 ROI %</div><input data-roi="R5" type="number" class="input roi" value="25"></div>
+          <div class="flex items-center">
+            <button id="addRoi" class="btn btn-ghost w-full border border-white/10 rounded-2xl">Add new ➕</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Open/Close conditions -->
+      <div class="md:col-span-2 space-y-3">
+        <div class="font-semibold">Open Conditions:</div>
+        <label class="switch block"><input id="openAtOpen" type="checkbox"> <span>The trade will start from the Open Price of each new candle.</span></label>
+        <label class="switch block"><input id="openAfterClose" type="checkbox"> <span>After the previous trade is closed, the next trade will start from the Open Price of the new candle.</span></label>
+
+        <div class="font-semibold mt-2">Close Conditions:</div>
+        <label class="switch block"><input id="closeOnSl" type="checkbox" checked> <span>If the Stoploss is hit, the trade will be closed.</span></label>
+        <label class="switch block"><input id="closeAtClose" type="checkbox" checked> <span>Each trade will be closed at the Close Price of every candle.</span></label>
+        <label class="switch block"><input id="trailByR" type="checkbox"> <span>As soon as the price hits a new R point, the Stoploss will be set at the previous R point.</span></label>
+        <label class="switch block"><input id="closeAtLastR" type="checkbox"> <span>The trade will be closed at the last R point.</span></label>
+      </div>
+
+      <div class="md:col-span-2">
+        <button id="saveBot" class="btn btn-primary">Save Bot</button>
+        <span class="ml-3 text-subtle text-sm" id="saveMsg"></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card rounded-2xl p-6">
+    <div class="text-lg font-semibold mb-3">Existing Bots</div>
+    <div id="botCards" class="space-y-3"></div>
+  </div>
+</div>
+{% endblock %}
