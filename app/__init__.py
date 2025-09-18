@@ -1,4 +1,3 @@
-
 from flask import Flask, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_socketio import SocketIO
@@ -7,54 +6,56 @@ import os
 from werkzeug.exceptions import HTTPException
 
 db = SQLAlchemy()
-socketio = SocketIO()
+socketio = SocketIO(async_mode='eventlet')
+
+# ---- Realtime summary broadcaster (module-level) ----
+def _summary_broadcaster(app):
+    from .models import Trade
+    from .bot_logic import running_bots
+    with app.app_context():
+        while True:
+            try:
+                running_ids = list(running_bots.keys())
+                for bot_id in running_ids:
+                    trades = Trade.query.filter(Trade.bot_id == bot_id).all()
+                    total = len(trades)
+                    wins = sum(1 for t in trades if (t.pnl or 0) > 0)
+                    losses = sum(1 for t in trades if (t.pnl or 0) < 0)
+                    breakeven = total - wins - losses
+                    profit = sum(max(0.0, (t.pnl or 0.0)) for t in trades)
+                    loss = sum(min(0.0, (t.pnl or 0.0)) for t in trades)
+                    net = profit + loss
+                    socketio.emit('summary_snapshot', {
+                        'bot_id': bot_id,
+                        'total_trades': total,
+                        'win_trades': wins,
+                        'loss_trades': losses,
+                        'breakeven_trades': breakeven,
+                        'total_profit': round(profit, 2),
+                        'total_loss': round(loss, 2),
+                        'net_pnl': round(net, 2),
+                    })
+            except Exception:
+                pass
+            socketio.sleep(3)
 
 def create_app():
     app = Flask(__name__, instance_relative_config=True)
 
-    # Ensure instance folder exists
     try:
         os.makedirs(app.instance_path, exist_ok=True)
     except Exception:
         pass
 
-    # Basic config
-    app.config['SECRET_KEY'] = 'a_super_secret_key_for_production_change_it'
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(app.instance_path, 'database.db')
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    app.config.setdefault('SECRET_KEY', os.environ.get('SECRET_KEY', 'dev'))
+    app.config.setdefault('SQLALCHEMY_DATABASE_URI', os.environ.get('DATABASE_URL', f"sqlite:///{os.path.join(app.instance_path, 'database.db')}"))
+    app.config.setdefault('SQLALCHEMY_TRACK_MODIFICATIONS', False)
+    app.config.setdefault('SWAGGER', {'title': 'Omlol Bot API', 'uiversion': 3})
 
-    # ---- Swagger Template for Section-wise Tags ----
-    swagger_template = {
-        "swagger": "2.0",
-        "host": "127.0.0.1:5000",
-        "basePath": "/",
-        "schemes": ["http"],
-        "info": {
-            "title": "Trading Bot API",
-            "description": "Section-wise grouped API documentation",
-            "version": "1.0.0"
-        },
-        "tags": [
-            {"name": "Accounts", "description": "Manage exchange accounts"},
-            {"name": "Bots", "description": "Create, configure, and control bots"},
-            {"name": "Trades", "description": "Trade history and open trades"},
-            {"name": "Symbols", "description": "Symbols from Binance Futures"},
-            {"name": "Reports", "description": "Live/summary reporting"}
-        ]
-    }
-    app.config['SWAGGER'] = {'uiversion': 3, 'title': 'Trading Bot API', 'specs_route': '/apidocs/'}
-
-    # Init extensions
     db.init_app(app)
-    socketio.init_app(app, cors_allowed_origins="*")
-    Swagger(app, template=swagger_template)
+    socketio.init_app(app, cors_allowed_origins='*')
+    Swagger(app)
 
-    # DB create
-    with app.app_context():
-        from . import models  # noqa: F401
-        db.create_all()
-
-    # Blueprints
     from .accounts.routes import accounts_bp
     from .bots.routes import bots_bp
     from .trades.routes import trades_bp
@@ -65,7 +66,16 @@ def create_app():
     app.register_blueprint(trades_bp, url_prefix='/')
     app.register_blueprint(web_bp, url_prefix='/')
 
-    # ---- JSON error handler (so Swagger/UI always gets JSON) ----
+    with app.app_context():
+        try:
+            db.create_all()
+        except Exception:
+            pass
+
+    if not getattr(app, '_summary_broadcaster_started', False):
+        socketio.start_background_task(_summary_broadcaster, app)
+        app._summary_broadcaster_started = True
+
     @app.errorhandler(Exception)
     def handle_exception(e):
         if isinstance(e, HTTPException):
