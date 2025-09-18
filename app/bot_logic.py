@@ -88,13 +88,30 @@ def symbol_trader(bot_id, symbol, stop_event):
                 open_price, close_price = float(last_candle[1]), float(last_candle[4])
                 print(f"Bot '{bot.name}' ({symbol}): Analyzing {bot.timeframe} candle. O:{open_price}, C:{close_price}")
                 
+                # --- FIX: Candle color → side mapping ---
+                # Rule:
+                #   Green (open < close)  => NEW LONG (BUY)
+                #   Red   (open > close)  => NEW SHORT (SELL)
+                #   Doji (open == close)  => skip
+                # Supports existing trade_mode:
+                #   follow  => as above
+                #   opposite=> invert side
                 side = None
-                if bot.trade_mode == 'follow':
-                    if close_price > open_price: side = Client.SIDE_BUY
-                    elif close_price < open_price: side = Client.SIDE_SELL
-                elif bot.trade_mode == 'opposite':
-                    if close_price > open_price: side = Client.SIDE_SELL
-                    elif close_price < open_price: side = Client.SIDE_BUY
+                mode = (bot.trade_mode or 'follow').lower()
+                if close_price > open_price:
+                    # green candle
+                    side_follow = Client.SIDE_BUY
+                elif close_price < open_price:
+                    # red candle
+                    side_follow = Client.SIDE_SELL
+                else:
+                    side_follow = None  # doji
+
+                if side_follow:
+                    if mode == 'opposite':
+                        side = Client.SIDE_SELL if side_follow == Client.SIDE_BUY else Client.SIDE_BUY
+                    else:
+                        side = side_follow
 
                 if side:
                     quantity = calculate_quantity(bot.margin_usd, bot.leverage, close_price, precision)
